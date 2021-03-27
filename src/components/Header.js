@@ -1,16 +1,13 @@
 import Button from './Button'
 
 const Header = (props) => {   //se puede pasar un prop atravez de app.js o colo carse una valor por default para el prop para poder darle mas dinamismo
-   const onClick = () =>{
-console.log('clik')
 
-   }
    
    
     return (
        <header className='header'>
            <h1>Seguimiento de tareas </h1>
-           <Button  color='green' text='Añadir' onClick={onClick}/>
+        <Button  color={props.showAddTask ?'red':'green' } text={props.showAddTask ?'Cancelar':'Añadir'} onClick={props.onAdd}/>
            {/* <h1>{props.title}</h1> Asi se puede acceder a las propiedades de los props como por ejempleo en este caso a la propiedad title */}
          
        </header>

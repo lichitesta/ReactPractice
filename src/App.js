@@ -3,7 +3,10 @@ import Task from './components/Tasks'
 import {useState} from 'react'
 import './style.css';
 import Tasks from './components/Tasks';
+
+import AddTask from './components/AddTask';
 function App() {
+  const [showAddTask,setShowAddTask] =useState(false);
 // const name = 'Lisandro'; //se pueden definir funciones o variables
  
 //A continuacion definimos un state en lugar definir un array fuera del componenete parap oder utilizarlo apra cargar las tareas
@@ -28,18 +31,35 @@ function App() {
         reminder: false
         }
     ])
+
+    //Agregar tarea
+    const addTask= (t) =>{
+     const id =Math.floor(Math.random() * 10000) +1;
+     const newTask = {id , ...t};
+     setTasks([...task,newTask]);
+
+    }
+
      //Creo una funcion para eliminar una tarea o task
      const deleteTask = (id)=>{
         setTasks(task.filter((task) =>task.id !== id)) //invocamos la funcion setTask para modificar el state de task utilizando la funcion .filter de js para poder filtrar los objetos cuya propiedad id sea diferente al id ingresado como parametro en al funcion deleteTask
      }
 
+     //Desactivar reminder o recordatorio
+     const togglereminder = (id) => {
+      setTasks(task.map((task) => task.id === id ? { ...task, reminder : !task.reminder}:task))
+
+     }
+
 
   return ( //Este metodo return solo puede devolver un elemento de cualquier tipo pero siempre va aser un solo elemento , si agrego toro div debajo del primero va a fallar al copilar lo mismo si pongo dos h1 sin ningun div o algo por el estilo
     <div className="container">
-    <Header />  {/*  Aca lo utilizamos invocandolo como si fuera una etiqueta html que se cierra al crearse similar a un br o hr */}
+    <Header onAdd={() => setShowAddTask(!showAddTask)} showAddTask={showAddTask}/>  {/*  Aca lo utilizamos invocandolo como si fuera una etiqueta html que se cierra al crearse similar a un br o hr */}
       {/* <h2>Buenos dias  {name}</h2> y luego utilizarlos en el codigo de la siguiente manera  */}
       {/* <h2> {name=='Lisandro' ?'hola' : 'chau'}</h2> o de esta forma utilizar funciones tambien como una condicional o cualquier otra */}
-     {task.length > 0 ?<Task tasks={task} onDelete={deleteTask}/> :<h4>No hay tareas para realizar</h4>}{/* Creamos la propiedad onDelete que cuando sea ejecutada ejecutara al funcion deleteTask definida mas erriba en este componenet*/}
+     {showAddTask && <AddTask onAdd ={addTask}/> }
+     
+     {task.length > 0 ?<Task tasks={task} onDelete={deleteTask} onToggle={togglereminder}/> :<h4>No hay tareas para realizar</h4>}{/* Creamos la propiedad onDelete que cuando sea ejecutada ejecutara al funcion deleteTask definida mas erriba en este componenet*/}
     </div>
   );
 }
