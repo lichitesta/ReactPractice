@@ -1,23 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
 
+import './style.css';
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const name = 'Lisandro'; //se pueden definir funciones o variables
+
+  return ( //Este metodo return solo puede devolver un elemento de cualquier tipo pero siempre va aser un solo elemento , si agrego toro div debajo del primero va a fallar al copilar lo mismo si pongo dos h1 sin ningun div o algo por el estilo
+    <div className="container">
+      
+      <h1> Seguimiento de tareas</h1>
+      {/* <h2>Buenos dias  {name}</h2> y luego utilizarlos en el codigo de la siguiente manera  */}
     </div>
   );
 }
